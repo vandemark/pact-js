@@ -50,7 +50,7 @@ describe("The Dog API", () => {
           },
         },
         willRespondWith: {
-          status: 200,
+          status: 503,
           headers: {
             "Content-Type": "application/json",
             "Retry-After": "1000",
@@ -61,7 +61,7 @@ describe("The Dog API", () => {
       return provider.addInteraction(interaction)
     })
 
-    it("returns the correct response", async () => {
+    it.only("returns the correct response", async () => {
       const urlAndPort = {
         url: url,
         port: port,
