@@ -38,7 +38,7 @@ describe("The Dog API", () => {
   afterEach(() => provider.verify())
 
   describe("get /dogs", () => {
-    before(done => {
+    before(() => {
       const interaction = {
         state: "i have a list of dogs",
         uponReceiving: "a request for all dogs",
@@ -53,24 +53,21 @@ describe("The Dog API", () => {
           status: 200,
           headers: {
             "Content-Type": "application/json",
+            "Retry-After": "1000",
           },
           body: EXPECTED_BODY,
         },
       }
-      provider.addInteraction(interaction).then(() => {
-        done()
-      })
+      return provider.addInteraction(interaction)
     })
 
-    it("returns the correct response", done => {
+    it("returns the correct response", async () => {
       const urlAndPort = {
         url: url,
         port: port,
       }
-      getMeDogs(urlAndPort).then(response => {
-        expect(response.data).to.eql(EXPECTED_BODY)
-        done()
-      }, done)
+      const response = await getMeDogs(urlAndPort)
+      expect(response.headers["retry-after"]).to.eql("1000")
     })
   })
 
