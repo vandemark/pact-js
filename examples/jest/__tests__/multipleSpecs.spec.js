@@ -24,7 +24,7 @@ describe("Dog's API", () => {
           method: "GET",
           path: "/dogs",
           headers: {
-            Accept: "application/json",
+            Accept: "application/json"          
           },
         },
         willRespondWith: {
@@ -51,7 +51,7 @@ describe("Dog's API", () => {
     })
   })
 
-  describe("works again", () => {
+  /*describe("works again", () => {
     beforeEach(() => {
       const interaction = {
         state: "i have a list of projects again",
@@ -85,5 +85,5 @@ describe("Dog's API", () => {
         expect(response.status).toEqual(200)
       })
     })
-  })
+  })*/
 })

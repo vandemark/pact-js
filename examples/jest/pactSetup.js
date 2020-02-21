@@ -10,4 +10,6 @@ global.provider = new Pact({
   pactfileWriteMode: "update",
   consumer: "MyConsumer",
   provider: "MyProvider",
+  logLevel: 'DEBUG',
+  cors: true
 })

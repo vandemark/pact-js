@@ -2,6 +2,8 @@
 
 const axios = require("axios")
 
+axios.defaults.withCredentials = true;
+
 exports.getMeDogs = endpoint => {
   const url = endpoint.url
   const port = endpoint.port
