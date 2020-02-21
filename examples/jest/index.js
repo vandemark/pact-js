@@ -7,12 +7,13 @@ axios.defaults.withCredentials = true;
 exports.getMeDogs = endpoint => {
   const url = endpoint.url
   const port = endpoint.port
+  const headers = endpoint.headers
 
   return axios.request({
     method: "GET",
     baseURL: `${url}:${port}`,
     url: "/dogs",
-    headers: { Accept: "application/json" },
+    headers: headers,
   })
 }
 

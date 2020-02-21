@@ -15,6 +15,7 @@ describe("Dog's API", () => {
     return provider.verify()
   })
 
+  // no OPTIONS preflight request but has withCreds
   describe("works", () => {
     beforeEach(() => {
       const interaction = {
@@ -38,11 +39,13 @@ describe("Dog's API", () => {
       return provider.addInteraction(interaction)
     })
 
+    let headers = { Accept: "application/json" }
     // add expectations
     it("returns a sucessful body", () => {
       return getMeDogs({
         url,
         port,
+        headers
       }).then(response => {
         expect(response.headers["content-type"]).toEqual("application/json")
         expect(response.data).toEqual(EXPECTED_BODY)
@@ -51,7 +54,8 @@ describe("Dog's API", () => {
     })
   })
 
-  /*describe("works again", () => {
+  // has OPTIONS preflight request (caused by custom header) & has withCreds
+  describe("works again", () => {
     beforeEach(() => {
       const interaction = {
         state: "i have a list of projects again",
@@ -61,6 +65,7 @@ describe("Dog's API", () => {
           path: "/dogs",
           headers: {
             Accept: "application/json",
+            custom: "5"
           },
         },
         willRespondWith: {
@@ -74,16 +79,18 @@ describe("Dog's API", () => {
       return provider.addInteraction(interaction)
     })
 
+    let headers = { Accept: "application/json", custom: "5" }
     // add expectations
     it("returns a sucessful body", () => {
       return getMeDogs({
         url,
         port,
+        headers
       }).then(response => {
         expect(response.headers["content-type"]).toEqual("application/json")
         expect(response.data).toEqual(EXPECTED_BODY)
         expect(response.status).toEqual(200)
       })
     })
-  })*/
+  })
 })
